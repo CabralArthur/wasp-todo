@@ -3,14 +3,18 @@ import {
     useQuery,
     createTask,
     updateTask
-} from 'wasp/client/operations'
+} from 'wasp/client/operations';
+import { logout } from 'wasp/client/auth'
 
 export const MainPage = () => {
   const { data: tasks, isLoading, error } = useQuery(getTasks)
 
   return (
     <div>
-        <NewTaskForm />
+        <div>
+            <NewTaskForm />
+            <button className="ml-3" onClick={logout}>Logout</button>
+        </div>
         
         {tasks && <TasksList tasks={tasks} />}
 
