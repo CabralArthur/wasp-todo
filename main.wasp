@@ -2,17 +2,35 @@ app example {
   wasp: {
     version: "^0.15.2"
   },
+  auth: {
+    userEntity: User,
+    methods: {
+        usernameAndPassword: {}
+    },
+    onAuthFailedRedirectTo: "/login",
+  },
   title: "example"
 }
 
 route RootRoute { path: "/", to: MainPage }
 page MainPage {
-  component: import { MainPage } from "@src/MainPage"
+    authRequired: true,
+    component: import { MainPage } from "@src/MainPage"
 }
 
 route HelloRoute { path: "/hello/:name", to: HelloPage }
 page HelloPage {
-  component: import { HelloPage } from "@src/HelloPage"
+    component: import { HelloPage } from "@src/HelloPage"
+}
+
+route SignupRoute { path: "/signup", to: SignupPage }
+page SignupPage {
+    component: import { SignupPage } from "@src/SignupPage"
+}
+
+route LoginRoute { path: "/login", to: LoginPage }
+page LoginPage {
+    component: import { LoginPage } from "@src/LoginPage"
 }
 
 query getTasks {
